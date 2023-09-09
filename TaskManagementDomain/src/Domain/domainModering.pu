@@ -1,0 +1,9 @@
+@startuml Summary
+!include ./shared/share.pu
+!include ./Task/Task.pu
+!include ./TaskGroup/TaskGroup.pu
+
+TaskGroup "1" <-- "0...1" Task
+
+title: ドメインモデル図
+@enduml

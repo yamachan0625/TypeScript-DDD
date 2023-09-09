@@ -1,0 +1,40 @@
+@startuml TaskGroupAggregation
+title: TaskGroupAggregation
+
+!include ../shared/theme.pu
+!include ../shared/share.pu
+
+package TaskGroupAggregation {
+    ''' Entity '''
+    class TaskGroup <<RootEntity>> {
+        taskGroupId: TaskGroupId 
+        name: TaskName  
+        createdAt: CreatedAt
+        updatedAt: UpdatedAt
+    }
+
+
+    ''' Value Object '''
+    class  TaskGroupId <<IdValueObject>> {
+        _value: string
+    }
+    class TaskName <<StringValueObject>> {
+        _value: string
+    }
+
+
+    ''' Relation '''
+    TaskGroup -- TaskGroupId
+    TaskGroup -- TaskName
+    TaskGroup -- CreatedAt
+    TaskGroup -- UpdatedAt
+
+
+    ''' Note '''
+    note bottom of TaskName
+    MAX_LENGTH = 100
+    MIN_LENGTH = 1
+    end note 
+}
+
+@enduml

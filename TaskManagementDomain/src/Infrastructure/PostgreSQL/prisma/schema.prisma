@@ -33,4 +33,5 @@ model Task {
 enum TaskStatus {
   INPROGRESS
   DONE
+  ARCHIVE
 }

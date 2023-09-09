@@ -1,0 +1,72 @@
+@startuml TaskAggregation
+title: TaskAggregation
+
+!include ../shared/theme.pu
+!include ../shared/share.pu
+!include ../TaskGroup/TaskGroup.pu
+
+package TaskAggregation {
+    ''' Entity '''
+    class Task <<RootEntity>> {
+        taskId: TaskId 
+        title: TaskTitle  
+        description: TaskDescription
+        status: TaskStatus
+        dueDate: DueDate
+        taskGroupId: TaskGroupId
+        createdAt: CreatedAt
+        updatedAt: UpdatedAt
+    }
+
+
+    ''' Value Object '''
+    class  TaskId <<IdValueObject>> {
+        _value: string
+    }
+    class TaskTitle <<StringValueObject>> {
+        _value: string
+    }
+    class TaskDescription <<StringValueObject>> {
+        _value: string
+    }
+    class  TaskStatus <<EnumValueObject>> {
+        INPROGRESS(): { key: 'inprogress', label: '進行中' } 
+        DONE(): { key: 'done', label: '完了' } 
+        ARCHIVE(): { key: 'archive', label: 'アーカイブ' } 
+    }
+    class  DueDate <<DateValueObject>> {
+        _value: Date
+    }
+
+
+    ''' Relation '''
+    Task -- TaskId
+    Task -- TaskTitle
+    Task -- TaskDescription
+    Task -- TaskStatus
+    Task -- DueDate
+    Task -- TaskGroupId
+    Task -- CreatedAt
+    Task -- UpdatedAt
+
+    ''' Note '''
+    note bottom of TaskTitle
+    MAX_LENGTH = 100
+    MIN_LENGTH = 1
+    end note 
+
+    note bottom of TaskDescription
+    MAX_LENGTH = 3000
+    MIN_LENGTH = 1
+    end note 
+
+    note bottom of TaskStatus
+    初期値はINPROGRESを設定。
+    end note 
+
+    note bottom of DueDate
+    当日より前の日付を設定することはできない。
+    end note 
+}
+
+@enduml

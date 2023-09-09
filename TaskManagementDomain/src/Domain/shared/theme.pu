@@ -1,0 +1,21 @@
+@startuml Theme
+hide empty members
+
+!$RootEntityColor = "#4DA6CC"
+!$EntityColor = "#82E4FA"
+!$ValueObjectColor = "#FFEFA8"
+
+skinparam  class {
+    BackgroundColor<<RootEntity>> $RootEntityColor
+    BackgroundColor<<Entity>> $EntityColor
+    BackgroundColor<<ValueObject>> $ValueObjectColor
+    BackgroundColor<<IdValueObject>> $ValueObjectColor
+    BackgroundColor<<StringValueObject>> $ValueObjectColor
+    BackgroundColor<<NumberValueObject>> $ValueObjectColor
+    BackgroundColor<<IntegerValueObject>> $ValueObjectColor
+    BackgroundColor<<EnumValueObject>> $ValueObjectColor
+    BackgroundColor<<DateValueObject>> $ValueObjectColor
+    BackgroundColor<<UrlValueObject>> $ValueObjectColor
+    BackgroundColor<<BooleanValueObject>> $ValueObjectColor
+}
+@enduml
