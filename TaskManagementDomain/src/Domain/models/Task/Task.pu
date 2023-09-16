@@ -60,8 +60,8 @@ package TaskAggregation {
     MIN_LENGTH = 1
     end note 
 
-    note bottom of TaskStatus
-    初期値はINPROGRESを設定。
+    note bottom of Task
+    create時のstatusの初期値はINPROGRES。
     end note 
 
     note bottom of DueDate

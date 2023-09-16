@@ -1,7 +1,7 @@
 @startuml Summary
 !include ./shared/share.pu
-!include ./Task/Task.pu
-!include ./TaskGroup/TaskGroup.pu
+!include ./models/Task/Task.pu
+!include ./models/TaskGroup/TaskGroup.pu
 
 TaskGroup "1" <-- "0...1" Task
 
