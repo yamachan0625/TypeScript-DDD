@@ -22,7 +22,7 @@ export class Task extends DomainEventStorable {
   private constructor(
     private readonly _taskId: TaskId,
     private _taskGroupId: TaskGroupId,
-    private _title: Title | null,
+    private _title: Title,
     private _description: Description | null,
     private _status: Status,
     private _dueDate: DueDate | null,

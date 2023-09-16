@@ -101,5 +101,15 @@ describe('Task', () => {
 
       expect(mockTask.dueDate?.value).toBe(dueDate.value);
     });
+
+    it('正常系:ドメインイベントが1つ増加する', () => {
+      const dueDate = DueDate.create(new Date());
+
+      // テストのために一度clearする
+      mockTask.clearDomainEvents();
+      mockTask.update({ ...mockTaskAttributes, dueDate });
+
+      expect(mockTask.getDomainEvents()).toHaveLength(1);
+    });
   });
 });

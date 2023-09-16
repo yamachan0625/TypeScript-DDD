@@ -12,7 +12,7 @@ export class Description extends StringValueObject<'Description'> {
     this.assertRegex(arg, this.REGEX);
   }
 
-  static readonly MAX_LENGTH = 100;
+  static readonly MAX_LENGTH = 5000;
   static readonly MIN_LENGTH = 1;
   static readonly REGEX = new RegExp(
     `^[a-zA-Z0-9０-９ａ-ｚぁ-んァ-ン一-龠%&]+$`,
@@ -20,4 +20,6 @@ export class Description extends StringValueObject<'Description'> {
   );
 }
 
-export const mockDescription = Description.create('Description');
+export const mockDescription = Description.create(
+  'トイレが汚れていたので念入りにやるべし'
+);

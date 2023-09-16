@@ -1,9 +1,9 @@
 import { StringValueObject } from '../../shared/AbstractValueObject/StringValueObject';
 
-export class Title extends StringValueObject<'Title'> {
-  static create(arg: string): Title {
+export class TaskGroupName extends StringValueObject<'TaskGroupName'> {
+  static create(arg: string): TaskGroupName {
     this.validate(arg);
-    return new Title(arg);
+    return new TaskGroupName(arg);
   }
 
   static validate(arg: string): void {
@@ -20,4 +20,4 @@ export class Title extends StringValueObject<'Title'> {
   );
 }
 
-export const mockTitle = Title.create('トイレ掃除をする');
+export const mockTaskGroupName = TaskGroupName.create('Name');

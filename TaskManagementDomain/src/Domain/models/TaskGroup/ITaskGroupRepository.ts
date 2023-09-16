@@ -1,5 +1,5 @@
-import { Task } from 'Domain/models/Task/Task/Task';
-import { TaskId } from 'Domain/models/Task/TaskId/TaskId';
+import { TaskGroup } from 'Domain/models/TaskGroup/TaskGroup';
+import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import {
   IRepository,
@@ -8,45 +8,43 @@ import {
   QueryWhereType,
 } from 'Domain/shared/IRepository';
 import { ITransaction } from 'Domain/shared/IRunTransaction';
-import { StatusKey } from 'Domain/models/Task/Status/Status';
 
-export abstract class ITaskRepository extends IRepository<Task, TaskDataModel> {
+export abstract class ITaskGroupRepository extends IRepository<
+  TaskGroup,
+  TaskGroupDataModel
+> {
   abstract findById(
-    taskId: TaskId,
+    taskGroupId: TaskGroupId,
     transaction?: ITransaction
-  ): Promise<Task | null>;
-  abstract findAll(transaction?: ITransaction): Promise<Task[]>;
+  ): Promise<TaskGroup | null>;
+  abstract findAll(transaction?: ITransaction): Promise<TaskGroup[]>;
   abstract query(
-    where: QueryWhereType<TaskDataModel>,
+    where: QueryWhereType<TaskGroupDataModel>,
     limit?: QueryLimitType,
-    order?: QueryOrderType<TaskDataModel>,
+    order?: QueryOrderType<TaskGroupDataModel>,
     transaction?: ITransaction
-  ): Promise<Task[]>;
+  ): Promise<TaskGroup[]>;
   abstract insert(
-    task: Task,
+    taskGroup: TaskGroup,
     domainEventPublisher: IDomainEventPublisher,
     transaction?: ITransaction
   ): Promise<void>;
   abstract update(
-    task: Task,
+    taskGroup: TaskGroup,
     domainEventPublisher: IDomainEventPublisher,
     transaction?: ITransaction
   ): Promise<void>;
   abstract remove(
-    task: Task,
+    taskGroup: TaskGroup,
     domainEventPublisher: IDomainEventPublisher,
     transaction?: ITransaction
   ): Promise<void>;
 }
 
-export type TaskDataModel = {
-  taskId: string;
+export type TaskGroupDataModel = {
   taskGroupId: string;
-  title: string | null;
-  description: string | null;
-  status: StatusKey;
-  dueDate: Date | null;
+  taskGroupName: string;
   createdAt: Date;
   updatedAt: Date;
 };
-export type TaskQueryDataModel = Omit<TaskDataModel, 'tenantId'>;
+export type TaskGroupQueryDataModel = Omit<TaskGroupDataModel, 'tenantId'>;

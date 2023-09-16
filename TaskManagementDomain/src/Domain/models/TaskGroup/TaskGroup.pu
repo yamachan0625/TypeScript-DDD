@@ -8,7 +8,7 @@ package TaskGroupAggregation {
     ''' Entity '''
     class TaskGroup <<RootEntity>> {
         taskGroupId: TaskGroupId 
-        name: TaskName  
+        taskGroupName: TaskGroupName  
         createdAt: CreatedAt
         updatedAt: UpdatedAt
     }
@@ -18,20 +18,20 @@ package TaskGroupAggregation {
     class  TaskGroupId <<IdValueObject>> {
         _value: string
     }
-    class TaskName <<StringValueObject>> {
+    class TaskGroupName <<StringValueObject>> {
         _value: string
     }
 
 
     ''' Relation '''
     TaskGroup -- TaskGroupId
-    TaskGroup -- TaskName
+    TaskGroup -- TaskGroupName
     TaskGroup -- CreatedAt
     TaskGroup -- UpdatedAt
 
 
     ''' Note '''
-    note bottom of TaskName
+    note bottom of TaskGroupName
     MAX_LENGTH = 100
     MIN_LENGTH = 1
     end note 
