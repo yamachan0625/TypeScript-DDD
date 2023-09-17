@@ -18,7 +18,6 @@ package TaskAggregation {
         updatedAt: UpdatedAt
     }
 
-
     ''' Value Object '''
     class  TaskId <<IdValueObject>> {
         _value: string

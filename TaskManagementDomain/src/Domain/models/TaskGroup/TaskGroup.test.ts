@@ -68,4 +68,17 @@ describe('TaskGroup', () => {
       expect(mockTaskGroup.getDomainEvents()).toHaveLength(1);
     });
   });
+
+  describe('remove', () => {
+    it('正常系:ドメインイベントが1つ増加する', () => {
+      const taskGroup = TaskGroup.create({
+        taskGroupName: mockTaskGroupName,
+      });
+
+      // テストのために一度clearする
+      taskGroup.clearDomainEvents();
+      taskGroup.remove();
+      expect(taskGroup.getDomainEvents()).toHaveLength(1);
+    });
+  });
 });

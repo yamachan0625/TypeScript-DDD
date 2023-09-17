@@ -1,9 +1,6 @@
 import { mockTask, Task } from './Task';
 import { mockTaskId } from '../TaskId/TaskId';
-import {
-  TaskGroupId,
-  mockTaskGroupId,
-} from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
+import { mockTaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { Title, mockTitle } from '../Title/Title';
 import { Description, mockDescription } from '../Description/Description';
 import { Status, mockStatus } from '../Status/Status';
@@ -110,6 +107,22 @@ describe('Task', () => {
       mockTask.update({ ...mockTaskAttributes, dueDate });
 
       expect(mockTask.getDomainEvents()).toHaveLength(1);
+    });
+  });
+
+  describe('remove', () => {
+    it('正常系:ドメインイベントが1つ増加する', () => {
+      const task = Task.create({
+        taskGroupId: mockTaskGroupId,
+        title: mockTitle,
+        description: mockDescription,
+        status: mockStatus,
+        dueDate: mockDueDate,
+      });
+      // テストのために一度clearする
+      task.clearDomainEvents();
+      task.remove();
+      expect(task.getDomainEvents()).toHaveLength(1);
     });
   });
 });

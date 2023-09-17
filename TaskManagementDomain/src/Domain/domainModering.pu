@@ -3,7 +3,7 @@
 !include ./models/Task/Task.pu
 !include ./models/TaskGroup/TaskGroup.pu
 
-TaskGroup "1" <-- "0...1" Task
+TaskGroup "1" <-- "0...20" Task
 
 title: ドメインモデル図
 @enduml
