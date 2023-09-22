@@ -13,9 +13,11 @@ import {
 import { TaskId } from 'Domain/models/Task/TaskId/TaskId';
 import { mockTitle, Title } from 'Domain/models/Task/Title/Title';
 
-import { TaskCreatedEvent } from '../DomainEvent/TaskCreatedEvent';
-import { TaskRemovedEvent } from '../DomainEvent/TaskRemovedEvent';
-import { TaskUpdatedEvent } from '../DomainEvent/TaskUpdatedEvent';
+import {
+  TaskCreatedEvent,
+  TaskRemovedEvent,
+  TaskUpdatedEvent,
+} from '../DomainEvent';
 import { DomainEventStorable } from 'Domain/shared/DomainEvent/DomainEvent';
 
 export class Task extends DomainEventStorable {
@@ -23,7 +25,7 @@ export class Task extends DomainEventStorable {
     private readonly _taskId: TaskId,
     private _taskGroupId: TaskGroupId,
     private _title: Title,
-    private _description: Description | null,
+    private _description: Description,
     private _status: Status,
     private _dueDate: DueDate | null,
     private readonly _createdAt: CreatedAt,

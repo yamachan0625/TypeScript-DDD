@@ -4,7 +4,8 @@
     "resolveJsonModule": true,
     "baseUrl": "./src",
     "esModuleInterop": true,
-    "experimentalDecorators": true // デコレータ許可
+    "experimentalDecorators": true, // デコレータ許可
+    "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js"]
+  "include": ["src/**/*.ts", "src/**/*.js", "setupJest.ts"]
 }

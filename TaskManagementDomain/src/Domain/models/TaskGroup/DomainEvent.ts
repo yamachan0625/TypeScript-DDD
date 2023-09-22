@@ -2,7 +2,7 @@ import { DomainEvent } from 'Domain/shared/DomainEvent/DomainEvent';
 import { TaskGroup, mockTaskGroup } from './TaskGroup';
 
 export class TaskGroupCreatedEvent implements DomainEvent {
-  readonly eventName = 'TaskCreatedEvent';
+  readonly eventName = 'TaskGroupCreatedEvent';
   constructor(public readonly task: TaskGroup) {}
 }
 export const mockTaskGroupCreatedEvent = new TaskGroupCreatedEvent(
@@ -10,7 +10,7 @@ export const mockTaskGroupCreatedEvent = new TaskGroupCreatedEvent(
 );
 
 export class TaskGroupUpdatedEvent implements DomainEvent {
-  readonly eventName = 'TaskUpdatedEvent';
+  readonly eventName = 'TaskGroupUpdatedEvent';
   constructor(public readonly task: TaskGroup) {}
 }
 export const mockTaskGroupUpdatedEvent = new TaskGroupUpdatedEvent(
@@ -18,7 +18,7 @@ export const mockTaskGroupUpdatedEvent = new TaskGroupUpdatedEvent(
 );
 
 export class TaskGroupRemovedEvent implements DomainEvent {
-  readonly eventName = 'TaskRemovedEvent';
+  readonly eventName = 'TaskGroupRemovedEvent';
   constructor(public readonly task: TaskGroup) {}
 }
 export const mockTaskGroupRemovedEvent = new TaskGroupRemovedEvent(

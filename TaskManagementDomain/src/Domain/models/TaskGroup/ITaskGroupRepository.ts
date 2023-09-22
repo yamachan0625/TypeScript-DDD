@@ -1,12 +1,7 @@
 import { TaskGroup } from 'Domain/models/TaskGroup/TaskGroup';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
-import {
-  IRepository,
-  QueryLimitType,
-  QueryOrderType,
-  QueryWhereType,
-} from 'Domain/shared/IRepository';
+import { IRepository } from 'Domain/shared/IRepository';
 import { ITransaction } from 'Domain/shared/IRunTransaction';
 
 export abstract class ITaskGroupRepository extends IRepository<
@@ -18,12 +13,6 @@ export abstract class ITaskGroupRepository extends IRepository<
     transaction?: ITransaction
   ): Promise<TaskGroup | null>;
   abstract findAll(transaction?: ITransaction): Promise<TaskGroup[]>;
-  abstract query(
-    where: QueryWhereType<TaskGroupDataModel>,
-    limit?: QueryLimitType,
-    order?: QueryOrderType<TaskGroupDataModel>,
-    transaction?: ITransaction
-  ): Promise<TaskGroup[]>;
   abstract insert(
     taskGroup: TaskGroup,
     domainEventPublisher: IDomainEventPublisher,

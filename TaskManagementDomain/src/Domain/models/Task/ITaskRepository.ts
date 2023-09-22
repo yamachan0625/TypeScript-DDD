@@ -1,25 +1,19 @@
 import { Task } from 'Domain/models/Task/Task/Task';
 import { TaskId } from 'Domain/models/Task/TaskId/TaskId';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
-import {
-  IRepository,
-  QueryLimitType,
-  QueryOrderType,
-  QueryWhereType,
-} from 'Domain/shared/IRepository';
+import { IRepository } from 'Domain/shared/IRepository';
 import { ITransaction } from 'Domain/shared/IRunTransaction';
 import { StatusKey } from 'Domain/models/Task/Status/Status';
+import { TaskGroupId } from '../TaskGroup/TaskGroupId/TaskGroupId';
 
 export abstract class ITaskRepository extends IRepository<Task, TaskDataModel> {
   abstract findById(
+    taskGroupId: TaskGroupId,
     taskId: TaskId,
     transaction?: ITransaction
   ): Promise<Task | null>;
-  abstract findAll(transaction?: ITransaction): Promise<Task[]>;
-  abstract query(
-    where: QueryWhereType<TaskDataModel>,
-    limit?: QueryLimitType,
-    order?: QueryOrderType<TaskDataModel>,
+  abstract findAll(
+    taskGroupId: TaskGroupId,
     transaction?: ITransaction
   ): Promise<Task[]>;
   abstract insert(
@@ -42,8 +36,8 @@ export abstract class ITaskRepository extends IRepository<Task, TaskDataModel> {
 export type TaskDataModel = {
   taskId: string;
   taskGroupId: string;
-  title: string | null;
-  description: string | null;
+  title: string;
+  description: string;
   status: StatusKey;
   dueDate: Date | null;
   createdAt: Date;
