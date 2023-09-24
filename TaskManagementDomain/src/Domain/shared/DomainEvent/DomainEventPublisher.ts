@@ -1,39 +1,40 @@
-import { inject, injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe';
 
-import { DomainEvent, DomainEventStorable } from './DomainEvent'
-import type { IDomainEventSubscriber } from './IDomainEventSubscriber'
+import { DomainEvent, DomainEventStorable } from './DomainEvent';
+import type { IDomainEventSubscriber } from './IDomainEventSubscriber';
 
 export interface IDomainEventPublisher {
-  readonly domainEventSubscriber: IDomainEventSubscriber
-  append(eventStorable: DomainEventStorable): void
-  publish(): void
+  readonly domainEventSubscriber: IDomainEventSubscriber;
+  append(eventStorable: DomainEventStorable): void;
+  publish(): void;
+  clear(): void;
 }
 
 @injectable()
 export class DomainEventPublisher implements IDomainEventPublisher {
-  private events: DomainEvent[] = []
+  private events: DomainEvent[] = [];
   constructor(
     @inject('IDomainEventSubscriber')
     public readonly domainEventSubscriber: IDomainEventSubscriber
   ) {
-    this.domainEventSubscriber = domainEventSubscriber
+    this.domainEventSubscriber = domainEventSubscriber;
   }
 
   public append(eventStorable: DomainEventStorable): void {
     for (const event of eventStorable.getDomainEvents()) {
-      this.events.push(event)
+      this.events.push(event);
     }
-    eventStorable.clearDomainEvents()
+    eventStorable.clearDomainEvents();
   }
 
   public publish(): void {
     for (const event of this.events) {
-      this.domainEventSubscriber.emit(event.eventName, event)
+      this.domainEventSubscriber.emit(event.eventName, event);
     }
-    this.clearDomainEvents()
+    this.clear();
   }
 
-  private clearDomainEvents(): void {
-    this.events = []
+  public clear(): void {
+    this.events = [];
   }
 }

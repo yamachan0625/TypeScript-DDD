@@ -2,9 +2,9 @@ import { inject, injectable } from 'tsyringe';
 import { TaskGroup } from 'Domain/models/TaskGroup/TaskGroup';
 import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupRepository';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
-import { IRunTransaction } from 'Domain/shared/IRunTransaction';
 import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener';
 import { TaskGroupName } from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupName';
+import { transaction } from 'Infrastructure/PostgreSQL/transaction';
 
 type TaskGroupCreateServiceCommand = {
   taskGroupName: string;
@@ -16,9 +16,7 @@ export class TaskGroupCreateService {
     @inject('ITaskGroupRepository')
     private repository: ITaskGroupRepository,
     @inject('IDomainEventPublisher')
-    private domainEventPublisher: IDomainEventPublisher,
-    @inject('IRunTransaction')
-    private firestoreRunTransaction: IRunTransaction
+    private domainEventPublisher: IDomainEventPublisher
   ) {
     new DomainEventListener(domainEventPublisher.domainEventSubscriber);
   }
@@ -26,7 +24,7 @@ export class TaskGroupCreateService {
   async execute({
     taskGroupName,
   }: TaskGroupCreateServiceCommand): Promise<{ taskGroupId: string }> {
-    const taskGroupId = await this.firestoreRunTransaction(
+    const taskGroupId = await transaction(
       this.domainEventPublisher,
       async (transaction) => {
         const taskGroup = TaskGroup.create({

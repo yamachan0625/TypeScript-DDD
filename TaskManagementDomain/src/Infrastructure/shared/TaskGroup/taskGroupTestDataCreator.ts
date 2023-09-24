@@ -1,11 +1,22 @@
 import { container } from 'tsyringe';
 import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupRepository';
 import { TaskGroup } from 'Domain/models/TaskGroup/TaskGroup';
-import { TaskGroupFactory } from './TaskGroupFactory';
-import { mockTaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
-import { mockTaskGroupName } from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupName';
-import { mockCreatedAt } from 'Domain/models/shared/CreatedAt/CreatedAt';
-import { mockUpdatedAt } from 'Domain/models/shared/UpdatedAt/UpdatedAt';
+import {
+  TaskGroupId,
+  mockTaskGroupId,
+} from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
+import {
+  TaskGroupName,
+  mockTaskGroupName,
+} from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupName';
+import {
+  CreatedAt,
+  mockCreatedAt,
+} from 'Domain/models/shared/CreatedAt/CreatedAt';
+import {
+  UpdatedAt,
+  mockUpdatedAt,
+} from 'Domain/models/shared/UpdatedAt/UpdatedAt';
 
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 
@@ -26,12 +37,11 @@ export const taskGroupTestDataCreator =
   }): Promise<TaskGroup> => {
     const domainEventPublisher = container.resolve(DomainEventPublisher);
 
-    const factory = new TaskGroupFactory();
-    const entity = factory.toEntity({
-      taskGroupId,
-      taskGroupName,
-      createdAt,
-      updatedAt,
+    const entity = TaskGroup.reconstruct({
+      taskGroupId: TaskGroupId.create(taskGroupId),
+      taskGroupName: TaskGroupName.create(taskGroupName),
+      createdAt: CreatedAt.create(createdAt),
+      updatedAt: UpdatedAt.create(updatedAt),
     });
 
     await repository.insert(entity, domainEventPublisher);

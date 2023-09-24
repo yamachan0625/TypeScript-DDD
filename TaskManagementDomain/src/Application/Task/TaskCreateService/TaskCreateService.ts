@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 import { ITaskRepository } from 'Domain/models/Task/ITaskRepository';
-import { IRunTransaction } from 'Domain/shared/IRunTransaction';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { Title } from 'Domain/models/Task/Title/Title';
 import { Description } from 'Domain/models/Task/Description/Description';
@@ -9,6 +8,7 @@ import { DueDate } from 'Domain/models/Task/DueDate/DueDate';
 import { Task } from 'Domain/models/Task/Task/Task';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener';
+import { transaction } from 'Infrastructure/PostgreSQL/transaction';
 
 type TaskCreateServiceCommand = {
   taskGroupId: string;
@@ -24,9 +24,7 @@ export class TaskCreateService {
     @inject('ITaskRepository')
     private repository: ITaskRepository,
     @inject('IDomainEventPublisher')
-    private domainEventPublisher: IDomainEventPublisher,
-    @inject('IRunTransaction')
-    private transaction: IRunTransaction
+    private domainEventPublisher: IDomainEventPublisher
   ) {
     new DomainEventListener(domainEventPublisher.domainEventSubscriber);
   }
@@ -38,7 +36,7 @@ export class TaskCreateService {
     status,
     dueDate,
   }: TaskCreateServiceCommand): Promise<{ taskId: string }> {
-    const taskId = await this.transaction(
+    const taskId = await transaction(
       this.domainEventPublisher,
       async (transaction) => {
         const task = Task.create({

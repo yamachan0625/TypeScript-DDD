@@ -1,20 +1,11 @@
 import { TaskGroup } from 'Domain/models/TaskGroup/TaskGroup';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
-import {
-  TaskGroupDataModel,
-  ITaskGroupRepository,
-} from 'Domain/models/TaskGroup/ITaskGroupRepository';
+import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupRepository';
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
-import { TaskGroupFactory } from 'Infrastructure/shared/TaskGroup/TaskGroupFactory';
 
 export class InMemoryTaskGroupRepository extends ITaskGroupRepository {
-  protected factory: TaskGroupFactory;
-  constructor() {
-    super();
-    this.factory = new TaskGroupFactory();
-  }
   public DB: {
-    [taskGroupId: string]: TaskGroupDataModel;
+    [id: string]: TaskGroup;
   } = {};
 
   async findById(taskGroupId: TaskGroupId): Promise<TaskGroup | null> {
@@ -22,29 +13,18 @@ export class InMemoryTaskGroupRepository extends ITaskGroupRepository {
       return taskGroupId.value === key.toString();
     });
 
-    if (!taskGroup) return null;
-
-    const data = taskGroup[1];
-
-    return this.factory.toEntity({
-      ...data,
-    });
+    return taskGroup[1] ?? null;
   }
 
   async findAll(): Promise<TaskGroup[]> {
-    const data = Object.values(this.DB);
-    return data.map((entity) =>
-      this.factory.toEntity({
-        ...entity,
-      })
-    );
+    return Object.values(this.DB);
   }
 
   async insert(
     taskGroup: TaskGroup,
     domainEventPublisher: DomainEventPublisher
   ) {
-    this.DB[taskGroup.taskGroupId.value] = this.factory.toDataModel(taskGroup);
+    this.DB[taskGroup.taskGroupId.value] = taskGroup;
 
     domainEventPublisher.append(taskGroup);
     domainEventPublisher.publish();
@@ -54,7 +34,7 @@ export class InMemoryTaskGroupRepository extends ITaskGroupRepository {
     taskGroup: TaskGroup,
     domainEventPublisher: DomainEventPublisher
   ) {
-    this.DB[taskGroup.taskGroupId.value] = this.factory.toDataModel(taskGroup);
+    this.DB[taskGroup.taskGroupId.value] = taskGroup;
 
     domainEventPublisher.append(taskGroup);
     domainEventPublisher.publish();

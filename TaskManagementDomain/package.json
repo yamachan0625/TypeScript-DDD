@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch './src/**/*.ts' --exec ts-node --files ./src/Presentation/express/index.ts",
     "prisma:studio": "npx prisma studio --schema='./src/Infrastructure/PostgreSQL/prisma/schema.prisma'",
-    "prisma:migrate": "npx prisma migrate dev --schema='./srcInfrastructure/PostgreSQL/prisma/schema.prisma'",
+    "prisma:migrate": "npx prisma migrate dev --schema='./src/Infrastructure/PostgreSQL/prisma/schema.prisma'",
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
     "test": "jest",
