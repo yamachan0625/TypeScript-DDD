@@ -13,15 +13,23 @@ export class InMemoryTaskRepository extends ITaskRepository {
     taskGroupId: TaskGroupId,
     taskId: TaskId
   ): Promise<Task | null> {
-    const task = Object.entries(this.DB).find(([key]) => {
-      return taskId.value === key.toString();
-    });
+    const task = Object.entries(this.DB).find(([id, task]) => {
+      return (
+        taskId.value === id.toString() && task.taskGroupId.equals(taskGroupId)
+      );
+    })[1];
 
-    return task[1] ?? null;
+    return task ?? null;
   }
 
   async findAll(taskGroupId: TaskGroupId): Promise<Task[]> {
-    return Object.values(this.DB);
+    return Object.entries(this.DB).reduce((acc, [, task]) => {
+      if (task.taskGroupId.equals(taskGroupId)) {
+        return [...acc, task];
+      }
+
+      return acc;
+    }, []);
   }
 
   async insert(task: Task, domainEventPublisher: DomainEventPublisher) {
