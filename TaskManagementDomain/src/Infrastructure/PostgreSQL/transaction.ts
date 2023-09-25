@@ -14,8 +14,9 @@ export const transaction = async <T>(
   const result = await prisma.$transaction(async (transaction) => {
     try {
       return await transactionFunc(transaction);
-    } catch (_) {
+    } catch (error) {
       domainEventPublisher.clear();
+      throw new Error(error);
     }
   });
 

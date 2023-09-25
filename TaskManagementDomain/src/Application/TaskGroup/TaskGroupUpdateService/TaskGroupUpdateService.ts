@@ -32,6 +32,7 @@ export class TaskGroupUpdateService {
         TaskGroupId.create(taskGroupId),
         transaction
       );
+
       if (taskGroup === null) {
         throw new Error('taskGroupIdに該当するデータが存在しません');
       }

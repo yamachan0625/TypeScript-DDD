@@ -1,6 +1,9 @@
 import { container } from 'tsyringe';
 
-import { taskTestDataCreator } from 'Infrastructure/shared/Task/taskTestDataCreator';
+import {
+  TEST_DATA,
+  taskTestDataCreator,
+} from 'Infrastructure/shared/Task/taskTestDataCreator';
 
 import { TaskFindAllService } from './TaskFindAllService';
 
@@ -10,15 +13,13 @@ describe('TaskFindAllService', () => {
     const repository = service['repository'];
 
     // 初期データ作成
-    await taskTestDataCreator(repository)({
-      taskId: 'testTaskId',
-    });
+    await taskTestDataCreator(repository)({});
     await taskTestDataCreator(repository)({
       taskId: 'testTaskId2',
     });
 
     const data = await service.execute({
-      taskGroupId: 'testTaskGroupId',
+      taskGroupId: TEST_DATA.taskGroupId,
     });
 
     expect(data).toHaveLength(2);
@@ -28,7 +29,7 @@ describe('TaskFindAllService', () => {
     const service = container.resolve(TaskFindAllService);
 
     const data = await service.execute({
-      taskGroupId: 'testTaskGroupId',
+      taskGroupId: TEST_DATA.taskGroupId,
     });
 
     expect(data).toHaveLength(0);

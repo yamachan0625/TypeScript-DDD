@@ -17,9 +17,9 @@ export class InMemoryTaskRepository extends ITaskRepository {
       return (
         taskId.value === id.toString() && task.taskGroupId.equals(taskGroupId)
       );
-    })[1];
+    });
 
-    return task ?? null;
+    return task ? task[1] : null;
   }
 
   async findAll(taskGroupId: TaskGroupId): Promise<Task[]> {

@@ -2,11 +2,7 @@ import { container } from 'tsyringe';
 
 import { MockDomainEventSubscriber } from 'Infrastructure/DomainEvent/DomainEventSubscriber';
 
-import {
-  mockTaskGroupId,
-  TaskGroupId,
-} from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
-import { mockTaskGroupName } from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupName';
+import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 
 import { TaskGroupCreateService } from './TaskGroupCreateService';
 import { TEST_DATA } from 'Infrastructure/shared/TaskGroup/taskGroupTestDataCreator';

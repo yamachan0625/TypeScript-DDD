@@ -15,11 +15,11 @@ describe('TaskCreateService', () => {
     const domainEventSubscriber = service['domainEventPublisher']
       .domainEventSubscriber as MockDomainEventSubscriber;
 
-    await service.execute(TEST_DATA);
+    const { taskId } = await service.execute(TEST_DATA);
 
     const createdTask = await repository.findById(
       TaskGroupId.create(TEST_DATA.taskGroupId),
-      TaskId.create(TEST_DATA.taskId)
+      TaskId.create(taskId)
     );
 
     expect(createdTask).not.toBeNull();

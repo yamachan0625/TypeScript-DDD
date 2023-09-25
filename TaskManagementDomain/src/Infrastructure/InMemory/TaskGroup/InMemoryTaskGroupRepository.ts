@@ -9,11 +9,11 @@ export class InMemoryTaskGroupRepository extends ITaskGroupRepository {
   } = {};
 
   async findById(taskGroupId: TaskGroupId): Promise<TaskGroup | null> {
-    const taskGroup = Object.entries(this.DB).find(([key]) => {
-      return taskGroupId.value === key.toString();
+    const taskGroup = Object.entries(this.DB).find(([id]) => {
+      return taskGroupId.value === id.toString();
     });
 
-    return taskGroup[1] ?? null;
+    return taskGroup ? taskGroup[1] : null;
   }
 
   async findAll(): Promise<TaskGroup[]> {
