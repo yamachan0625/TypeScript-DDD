@@ -1,7 +1,5 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
 
@@ -13,10 +11,7 @@ app.get('/', (req, res) => {
 });
 
 // taskGroup
-app.get('/taskGroups', async (req, res) => {
-  const users = await prisma.task.findMany();
-  res.json({ users });
-});
+app.get('/taskGroups', async (req, res) => {});
 app.post('/taskGroups', async (req, res) => {});
 app.delete('/taskGroups/:id', async (req, res) => {});
 

@@ -1,4 +1,4 @@
-import { PrismaClient, Task as TaskDataModel } from '@prisma/client';
+import { Task as TaskDataModel } from '@prisma/client';
 
 import { Task } from 'Domain/models/Task/Task/Task';
 import { TaskId } from 'Domain/models/Task/TaskId/TaskId';
@@ -12,8 +12,8 @@ import { Status } from 'Domain/models/Task/Status/Status';
 import { DueDate } from 'Domain/models/Task/DueDate/DueDate';
 import { CreatedAt } from 'Domain/models/shared/CreatedAt/CreatedAt';
 import { UpdatedAt } from 'Domain/models/shared/UpdatedAt/UpdatedAt';
+import prisma from '../prismaClient';
 
-const prisma = new PrismaClient();
 export class PostgreSQLTaskRepository extends ITaskRepository {
   async findById(
     taskGroupId: TaskGroupId,

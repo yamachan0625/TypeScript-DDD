@@ -5,12 +5,12 @@ import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupReposito
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 
 import { Transaction } from '../transaction';
-import { PrismaClient, TaskGroup as TaskGroupDataModel } from '@prisma/client';
+import { TaskGroup as TaskGroupDataModel } from '@prisma/client';
 import { UpdatedAt } from 'Domain/models/shared/UpdatedAt/UpdatedAt';
 import { CreatedAt } from 'Domain/models/shared/CreatedAt/CreatedAt';
 import { TaskGroupName } from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupName';
+import prisma from '../prismaClient';
 
-const prisma = new PrismaClient();
 export class PostgreSQLTaskGroupRepository extends ITaskGroupRepository {
   async findById(
     taskGroupId: TaskGroupId,

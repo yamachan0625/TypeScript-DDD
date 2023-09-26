@@ -23,7 +23,7 @@ describe('PostgreSQLTaskGroupRepository', () => {
   });
 
   it('findAll', async () => {
-    const createdEntity = await taskGroupTestDataCreator(repository)({});
+    await taskGroupTestDataCreator(repository)({});
     await taskGroupTestDataCreator(repository)({
       taskGroupId: 'test-entity-id2',
     });
