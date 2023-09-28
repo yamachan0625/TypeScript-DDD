@@ -1,0 +1,14 @@
+# .github/actions/build/action.yml
+name: 'Build'
+description: 'Sets up the repository'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.17.1'
+    - name: Install dependencies
+      shell: bash
+      run: npm install

@@ -2,9 +2,9 @@ import { mockStatus, Status } from './Status';
 
 describe('Status', () => {
   const cases = [
-    ['inprogress', Status.INPROGRESS()],
-    ['done', Status.DONE()],
-    ['archive', Status.ARCHIVE()],
+    ['INPROGRESS', Status.INPROGRESS()],
+    ['DONE', Status.DONE()],
+    ['ARCHIVE', Status.ARCHIVE()],
   ] as const;
   it('正常系:モックのインスタンスが正常に生成される', () => {
     expect(mockStatus).toBeInstanceOf(Status);
