@@ -10,7 +10,7 @@
     "db:connect": "docker-compose up -d",
     "db:down": "docker-compose down",
     "test": "jest --runInBand",
-    "test:db": "./src/Infrastructure/PostgreSQL/scripts/run-integration.sh",
+    "test:it": "./src/Infrastructure/PostgreSQL/scripts/run-integration.sh",
     "build": "tsc"
   },
   "keywords": [],
