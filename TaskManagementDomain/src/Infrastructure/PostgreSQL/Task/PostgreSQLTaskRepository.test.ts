@@ -10,10 +10,13 @@ import { PostgreSQLTaskRepository } from './PostgreSQLTaskRepository';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { taskGroupTestDataCreator } from 'Infrastructure/shared/TaskGroup/taskGroupTestDataCreator';
 import { PostgreSQLTaskGroupRepository } from '../TaskGroup/PostgreSQLTaskGroupRepository';
+import { initializeTestDB } from '../../../../setupJest';
 
 describe('PostgreSQLTaskRepository', () => {
   const taskGroupId = 'test-task-group-id';
   beforeEach(async () => {
+    await initializeTestDB();
+
     // Taskと紐付けるTaskGroupを作成する
     const repository = new PostgreSQLTaskGroupRepository();
     await taskGroupTestDataCreator(repository)({ taskGroupId });
