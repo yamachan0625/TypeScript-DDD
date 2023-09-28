@@ -62,7 +62,7 @@ export class PostgreSQLTaskGroupRepository extends ITaskGroupRepository {
     domainEventPublisher.append(taskGroup);
 
     const client = transaction ? transaction : prisma;
-    await client.task.update({
+    await client.taskGroup.update({
       where: { id: taskGroup.taskGroupId.value },
       data: this.entityToDataModel(taskGroup),
     });
@@ -80,7 +80,7 @@ export class PostgreSQLTaskGroupRepository extends ITaskGroupRepository {
     domainEventPublisher.append(taskGroup);
 
     const client = transaction ? transaction : prisma;
-    await client.task.delete({
+    await client.taskGroup.delete({
       where: { id: taskGroup.taskGroupId.value },
     });
 

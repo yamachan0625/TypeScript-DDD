@@ -8,8 +8,17 @@ import {
 } from 'Infrastructure/shared/Task/taskTestDataCreator';
 import { PostgreSQLTaskRepository } from './PostgreSQLTaskRepository';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
+import { taskGroupTestDataCreator } from 'Infrastructure/shared/TaskGroup/taskGroupTestDataCreator';
+import { PostgreSQLTaskGroupRepository } from '../TaskGroup/PostgreSQLTaskGroupRepository';
 
 describe('PostgreSQLTaskRepository', () => {
+  const taskGroupId = 'test-task-group-id';
+  beforeEach(async () => {
+    // Taskと紐付けるTaskGroupを作成する
+    const repository = new PostgreSQLTaskGroupRepository();
+    await taskGroupTestDataCreator(repository)({ taskGroupId });
+  });
+
   const repository = new PostgreSQLTaskRepository();
   const mockDomainEventSubscriber = new MockDomainEventSubscriber();
   const domainEventPublisher = new DomainEventPublisher(
@@ -17,7 +26,9 @@ describe('PostgreSQLTaskRepository', () => {
   );
 
   it('findById', async () => {
-    const createdEntity = await taskTestDataCreator(repository)({});
+    const createdEntity = await taskTestDataCreator(repository)({
+      taskGroupId,
+    });
 
     const readEntity = await repository.findById(
       createdEntity.taskGroupId,
@@ -29,11 +40,15 @@ describe('PostgreSQLTaskRepository', () => {
   });
 
   it('findAll', async () => {
-    const createdEntity = await taskTestDataCreator(repository)({});
+    const createdEntity = await taskTestDataCreator(repository)({
+      taskGroupId,
+    });
     await taskTestDataCreator(repository)({
+      taskGroupId,
       taskId: 'test-entity-id2',
     });
     await taskTestDataCreator(repository)({
+      taskGroupId,
       taskId: 'test-entity-id3',
     });
 
@@ -43,7 +58,9 @@ describe('PostgreSQLTaskRepository', () => {
   });
 
   it('update', async () => {
-    const createdEntity = await taskTestDataCreator(repository)({});
+    const createdEntity = await taskTestDataCreator(repository)({
+      taskGroupId,
+    });
     const updateValue = Title.create('aaaaaaaaaaa');
     createdEntity.update({
       title: updateValue,
@@ -63,7 +80,9 @@ describe('PostgreSQLTaskRepository', () => {
   });
 
   it('remove', async () => {
-    const createdEntity = await taskTestDataCreator(repository)({});
+    const createdEntity = await taskTestDataCreator(repository)({
+      taskGroupId,
+    });
 
     const readEntity = await repository.findById(
       createdEntity.taskGroupId,

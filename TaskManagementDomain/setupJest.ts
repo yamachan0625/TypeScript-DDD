@@ -4,8 +4,8 @@ import prisma from 'Infrastructure/PostgreSQL/prismaClient';
 
 beforeEach(async () => {
   const deleteAllDataPromises = [
-    prisma.taskGroup.deleteMany(),
     prisma.task.deleteMany(),
+    prisma.taskGroup.deleteMany(),
   ];
   await prisma.$transaction(deleteAllDataPromises);
   await prisma.$disconnect();
