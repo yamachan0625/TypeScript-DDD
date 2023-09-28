@@ -5,9 +5,11 @@ runs:
   using: 'composite'
   steps:
     - name: Install Node.js
+      working-directory: ./TaskManagementDomain
       uses: actions/setup-node@v3
       with:
         node-version: '18.17.1'
     - name: Install dependencies
+      working-directory: ./TaskManagementDomain
       shell: bash
       run: npm install
