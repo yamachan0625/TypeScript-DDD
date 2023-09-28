@@ -8,6 +8,17 @@ env:
   DATABASE_URL: postgresql://postgres:password@localhost:5433/testdb
 
 jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./TaskManagementDomain
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build
+      - name: Run tests
+        run: npm run test:ut
+
   integration-tests:
     runs-on: ubuntu-latest
     defaults:
