@@ -2,6 +2,7 @@ import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPubli
 import { DomainEventSubscriber } from 'Infrastructure/DomainEvent/DomainEventSubscriber';
 import { PostgreSQLTaskRepository } from 'Infrastructure/PostgreSQL/Task/PostgreSQLTaskRepository';
 import { PostgreSQLTaskGroupRepository } from 'Infrastructure/PostgreSQL/TaskGroup/PostgreSQLTaskGroupRepository';
+import { transaction } from 'Infrastructure/PostgreSQL/transaction';
 import { container } from 'tsyringe';
 
 container.register('ITaskRepository', {
@@ -18,4 +19,7 @@ container.register('IDomainEventSubscriber', {
 });
 container.register('IDomainEventPublisher', {
   useClass: DomainEventPublisher,
+});
+container.register('ITransaction', {
+  useValue: transaction,
 });

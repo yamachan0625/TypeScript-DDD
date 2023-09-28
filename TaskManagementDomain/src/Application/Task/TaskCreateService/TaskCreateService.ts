@@ -8,7 +8,7 @@ import { DueDate } from 'Domain/models/Task/DueDate/DueDate';
 import { Task } from 'Domain/models/Task/Task/Task';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener';
-import { transaction } from 'Infrastructure/PostgreSQL/transaction';
+import { ITransaction } from 'Application/ITransaction';
 
 type TaskCreateServiceCommand = {
   taskGroupId: string;
@@ -24,7 +24,9 @@ export class TaskCreateService {
     @inject('ITaskRepository')
     private repository: ITaskRepository,
     @inject('IDomainEventPublisher')
-    private domainEventPublisher: IDomainEventPublisher
+    private domainEventPublisher: IDomainEventPublisher,
+    @inject('ITransaction')
+    private transaction: ITransaction
   ) {
     new DomainEventListener(domainEventPublisher.domainEventSubscriber);
   }
@@ -36,7 +38,7 @@ export class TaskCreateService {
     status,
     dueDate,
   }: TaskCreateServiceCommand): Promise<{ taskId: string }> {
-    const taskId = await transaction(
+    const taskId = await this.transaction(
       this.domainEventPublisher,
       async (transaction) => {
         const task = Task.create({

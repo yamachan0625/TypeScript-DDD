@@ -5,7 +5,7 @@ import { TaskGroupName } from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupNa
 import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupRepository';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener';
-import { transaction } from 'Infrastructure/PostgreSQL/transaction';
+import { ITransaction } from 'Application/ITransaction';
 
 type TaskGroupUpdateCommand = {
   taskGroupId: string;
@@ -18,7 +18,9 @@ export class TaskGroupUpdateService {
     @inject('ITaskGroupRepository')
     private repository: ITaskGroupRepository,
     @inject('IDomainEventPublisher')
-    private domainEventPublisher: IDomainEventPublisher
+    private domainEventPublisher: IDomainEventPublisher,
+    @inject('ITransaction')
+    private transaction: ITransaction
   ) {
     new DomainEventListener(domainEventPublisher.domainEventSubscriber);
   }
@@ -27,7 +29,7 @@ export class TaskGroupUpdateService {
     taskGroupId,
     taskGroupName,
   }: TaskGroupUpdateCommand): Promise<void> {
-    await transaction(this.domainEventPublisher, async (transaction) => {
+    await this.transaction(this.domainEventPublisher, async (transaction) => {
       const taskGroup = await this.repository.findById(
         TaskGroupId.create(taskGroupId),
         transaction

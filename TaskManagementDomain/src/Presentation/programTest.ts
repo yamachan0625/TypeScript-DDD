@@ -1,3 +1,4 @@
+import { transactionMock } from 'Application/ITransaction';
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { MockDomainEventSubscriber } from 'Infrastructure/DomainEvent/DomainEventSubscriber';
 import { InMemoryTaskRepository } from 'Infrastructure/InMemory/Task/InMemoryTaskRepository';
@@ -18,4 +19,7 @@ container.register('IDomainEventSubscriber', {
 });
 container.register('IDomainEventPublisher', {
   useClass: DomainEventPublisher,
+});
+container.register('ITransaction', {
+  useValue: transactionMock,
 });

@@ -5,8 +5,13 @@ import { MockDomainEventSubscriber } from 'Infrastructure/DomainEvent/DomainEven
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { taskGroupTestDataCreator } from 'Infrastructure/shared/TaskGroup/taskGroupTestDataCreator';
 import { PostgreSQLTaskGroupRepository } from './PostgreSQLTaskGroupRepository';
+import { initializeTestDB } from '../tests/initializeTestDB';
 
 describe('PostgreSQLTaskGroupRepository', () => {
+  beforeEach(async () => {
+    await initializeTestDB();
+  });
+
   const repository = new PostgreSQLTaskGroupRepository();
   const mockDomainEventSubscriber = new MockDomainEventSubscriber();
   const domainEventPublisher = new DomainEventPublisher(
