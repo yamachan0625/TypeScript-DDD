@@ -1,4 +1,4 @@
-name: Tests
+name: Integration Tests
 on:
   pull_request:
     branches:
@@ -20,4 +20,4 @@ jobs:
         shell: bash
         run: npm install
       - name: Run tests
-        run: npm test:it
+        run: npm run test:it
