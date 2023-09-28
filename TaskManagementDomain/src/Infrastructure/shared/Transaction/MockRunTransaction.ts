@@ -6,5 +6,5 @@ export const runTransactionMock: IRunTransaction = async (
   domainEventPublisher: IDomainEventPublisher,
   transactionFunc: (transaction: ITransaction) => Promise<any>
 ) => {
-  return await transactionFunc(new MockTransaction());
+  return await this.transactionFunc(new MockTransaction());
 };

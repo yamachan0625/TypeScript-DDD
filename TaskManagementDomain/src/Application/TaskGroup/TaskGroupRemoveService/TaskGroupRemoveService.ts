@@ -4,7 +4,7 @@ import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupRepository';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
-import { transaction } from 'Infrastructure/PostgreSQL/transaction';
+import { ITransaction } from 'Application/ITransaction';
 
 type TaskGroupRemoveCommand = {
   taskGroupId: string;
@@ -16,13 +16,15 @@ export class TaskGroupRemoveService {
     @inject('ITaskGroupRepository')
     private repository: ITaskGroupRepository,
     @inject('IDomainEventPublisher')
-    private domainEventPublisher: IDomainEventPublisher
+    private domainEventPublisher: IDomainEventPublisher,
+    @inject('ITransaction')
+    private transaction: ITransaction
   ) {
     new DomainEventListener(domainEventPublisher.domainEventSubscriber);
   }
 
   async execute({ taskGroupId }: TaskGroupRemoveCommand): Promise<void> {
-    await transaction(this.domainEventPublisher, async (transaction) => {
+    await this.transaction(this.domainEventPublisher, async (transaction) => {
       const taskGroup = await this.repository.findById(
         TaskGroupId.create(taskGroupId),
         transaction
