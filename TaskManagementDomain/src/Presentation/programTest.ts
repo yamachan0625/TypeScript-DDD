@@ -1,8 +1,8 @@
+import { transactionMock } from 'Application/ITransaction';
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { MockDomainEventSubscriber } from 'Infrastructure/DomainEvent/DomainEventSubscriber';
 import { InMemoryTaskRepository } from 'Infrastructure/InMemory/Task/InMemoryTaskRepository';
 import { InMemoryTaskGroupRepository } from 'Infrastructure/InMemory/TaskGroup/InMemoryTaskGroupRepository';
-import { transaction } from 'Infrastructure/PostgreSQL/transaction';
 import { container } from 'tsyringe';
 
 container.register('ITaskRepository', {
@@ -21,5 +21,5 @@ container.register('IDomainEventPublisher', {
   useClass: DomainEventPublisher,
 });
 container.register('ITransaction', {
-  useValue: transaction,
+  useValue: transactionMock,
 });

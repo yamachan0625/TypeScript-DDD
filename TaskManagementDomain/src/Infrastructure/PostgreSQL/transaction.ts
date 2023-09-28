@@ -2,14 +2,13 @@ import { DefaultArgs } from '@prisma/client/runtime/library';
 import { IDomainEventPublisher } from '../../Domain/shared/DomainEvent/DomainEventPublisher';
 import { Prisma, PrismaClient } from '@prisma/client';
 import prisma from './prismaClient';
-
-export type ITransaction = any;
+import { ITransaction } from 'Application/ITransaction';
 
 export type Transaction = Omit<
   PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
   '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
 >;
-export const transaction = async <T>(
+export const transaction: ITransaction = async <T>(
   domainEventPublisher: IDomainEventPublisher,
   transactionFunc: (transaction: Transaction) => Promise<T>
 ): Promise<T> => {

@@ -8,7 +8,7 @@ import { DueDate } from 'Domain/models/Task/DueDate/DueDate';
 import { Task } from 'Domain/models/Task/Task/Task';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener';
-import { ITransaction } from 'Infrastructure/PostgreSQL/transaction';
+import { ITransaction } from 'Application/ITransaction';
 
 type TaskCreateServiceCommand = {
   taskGroupId: string;
