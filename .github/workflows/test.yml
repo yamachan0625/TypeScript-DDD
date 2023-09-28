@@ -19,6 +19,5 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: npm install
-      - uses: ./.github/actions/build
       - name: Run tests
         run: npm test:it
