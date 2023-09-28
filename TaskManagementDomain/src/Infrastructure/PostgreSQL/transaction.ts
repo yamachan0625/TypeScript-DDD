@@ -3,6 +3,8 @@ import { IDomainEventPublisher } from '../../Domain/shared/DomainEvent/DomainEve
 import { Prisma, PrismaClient } from '@prisma/client';
 import prisma from './prismaClient';
 
+export type ITransaction = any;
+
 export type Transaction = Omit<
   PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
   '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
