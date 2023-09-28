@@ -10,7 +10,7 @@ import { PostgreSQLTaskRepository } from './PostgreSQLTaskRepository';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { taskGroupTestDataCreator } from 'Infrastructure/shared/TaskGroup/taskGroupTestDataCreator';
 import { PostgreSQLTaskGroupRepository } from '../TaskGroup/PostgreSQLTaskGroupRepository';
-import { initializeTestDB } from '../../../../setupJest';
+import { initializeTestDB } from '../tests/initializeTestDB';
 
 describe('PostgreSQLTaskRepository', () => {
   const taskGroupId = 'test-task-group-id';

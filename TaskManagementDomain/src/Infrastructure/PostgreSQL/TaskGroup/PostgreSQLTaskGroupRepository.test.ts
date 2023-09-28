@@ -5,7 +5,7 @@ import { MockDomainEventSubscriber } from 'Infrastructure/DomainEvent/DomainEven
 import { DomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { taskGroupTestDataCreator } from 'Infrastructure/shared/TaskGroup/taskGroupTestDataCreator';
 import { PostgreSQLTaskGroupRepository } from './PostgreSQLTaskGroupRepository';
-import { initializeTestDB } from '../../../../setupJest';
+import { initializeTestDB } from '../tests/initializeTestDB';
 
 describe('PostgreSQLTaskGroupRepository', () => {
   beforeEach(async () => {
