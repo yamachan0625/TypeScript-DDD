@@ -7,8 +7,8 @@
     "dev": "nodemon --watch './src/**/*.ts' --exec ts-node --files ./src/Presentation/express/index.ts",
     "prisma:studio": "npx prisma studio --schema='./src/Infrastructure/PostgreSQL/prisma/schema.prisma'",
     "prisma:migrate": "npx prisma migrate dev --schema='./src/Infrastructure/PostgreSQL/prisma/schema.prisma'",
-    "db:connect": "docker-compose up -d",
-    "db:down": "docker-compose down",
+    "db:connect": "docker compose up -d",
+    "db:down": "docker compose down",
     "test:it": "./src/Infrastructure/PostgreSQL/scripts/run-integration.sh",
     "test:ut": "jest --testPathIgnorePatterns='/Infrastructure/'",
     "build": "tsc"

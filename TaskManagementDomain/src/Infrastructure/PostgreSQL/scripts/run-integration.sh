@@ -9,5 +9,5 @@ npx prisma migrate dev --name init --schema='./src/Infrastructure/PostgreSQL/pri
 echo '5.テストを開始します'
 jest --runInBand /Infrastructure/PostgreSQL
 echo '6.DBを停止します'
-docker-compose -f docker-compose.test.yml rm -fsv testdb
+docker compose -f docker-compose.test.yml rm -fsv testdb
 echo '6.テストが正常に終了しました'
