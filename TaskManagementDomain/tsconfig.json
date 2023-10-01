@@ -1,9 +1,15 @@
 {
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
   "compilerOptions": {
     "outDir": "./dist",
     "strict": true,
     "resolveJsonModule": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./src/*"]
+    },
     "esModuleInterop": true,
     "experimentalDecorators": true, // デコレータ許可
     "emitDecoratorMetadata": true
