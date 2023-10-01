@@ -17,7 +17,7 @@ export const transaction: ITransaction = async <T>(
       return await transactionFunc(transaction);
     } catch (error) {
       domainEventPublisher.clear();
-      throw new Error(error);
+      throw new Error();
     }
   });
 

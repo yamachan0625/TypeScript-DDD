@@ -36,8 +36,8 @@ export class Task extends DomainEventStorable {
 
   static create(input: {
     taskGroupId: TaskGroupId;
-    title: Title | null;
-    description: Description | null;
+    title: Title;
+    description: Description;
     status: Status;
     dueDate: DueDate | null;
   }): Task {
@@ -64,8 +64,8 @@ export class Task extends DomainEventStorable {
   static reconstruct(input: {
     taskId: TaskId;
     taskGroupId: TaskGroupId;
-    title: Title | null;
-    description: Description | null;
+    title: Title;
+    description: Description;
     status: Status;
     dueDate: DueDate | null;
     createdAt: CreatedAt;
@@ -85,19 +85,27 @@ export class Task extends DomainEventStorable {
 
   update(input: {
     taskGroupId: TaskGroupId;
-    title: Title | null;
-    description: Description | null;
-    status: Status;
-    dueDate: DueDate | null;
+    title?: Title;
+    description?: Description;
+    status?: Status;
+    dueDate?: DueDate | null;
   }): void {
     const updatedAt = UpdatedAt.create();
     this.changeUpdatedAt(updatedAt);
 
     this.changeTaskGroupId(input.taskGroupId);
-    this.changeTitle(input.title);
-    this.changeDescription(input.description);
-    this.changeStatus(input.status);
-    this.changeDueDate(input.dueDate);
+    if (input.title) {
+      this.changeTitle(input.title);
+    }
+    if (input.description) {
+      this.changeDescription(input.description);
+    }
+    if (input.status) {
+      this.changeStatus(input.status);
+    }
+    if (input.dueDate) {
+      this.changeDueDate(input.dueDate);
+    }
 
     this.addDomainEvent(new TaskUpdatedEvent(this));
   }
@@ -112,10 +120,10 @@ export class Task extends DomainEventStorable {
   get taskGroupId(): TaskGroupId {
     return this._taskGroupId;
   }
-  get title(): Title | null {
+  get title(): Title {
     return this._title;
   }
-  get description(): Description | null {
+  get description(): Description {
     return this._description;
   }
   get status(): Status {
@@ -134,10 +142,10 @@ export class Task extends DomainEventStorable {
   private changeTaskGroupId(taskGroupId: TaskGroupId): void {
     this._taskGroupId = taskGroupId;
   }
-  private changeTitle(title: Title | null): void {
+  private changeTitle(title: Title): void {
     this._title = title;
   }
-  private changeDescription(description: Description | null): void {
+  private changeDescription(description: Description): void {
     this._description = description;
   }
   private changeStatus(status: Status): void {

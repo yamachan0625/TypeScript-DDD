@@ -53,9 +53,9 @@ export class TaskUpdateService {
 
       task.update({
         taskGroupId: TaskGroupId.create(taskGroupId),
-        title: Title.create(title),
-        description: Description.create(description),
-        status: Status.fromKey(status),
+        title: title ? Title.create(title) : undefined,
+        description: description ? Description.create(description) : undefined,
+        status: status ? Status.fromKey(status) : undefined,
         dueDate: dueDate
           ? DueDate.create(dueDate)
           : dueDate === null

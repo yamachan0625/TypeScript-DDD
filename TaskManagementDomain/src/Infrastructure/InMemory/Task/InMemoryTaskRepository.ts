@@ -29,7 +29,7 @@ export class InMemoryTaskRepository extends ITaskRepository {
       }
 
       return acc;
-    }, []);
+    }, [] as Task[]);
   }
 
   async insert(task: Task, domainEventPublisher: DomainEventPublisher) {

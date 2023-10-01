@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
+    "strict": true,
     "resolveJsonModule": true,
     "baseUrl": "./src",
     "esModuleInterop": true,

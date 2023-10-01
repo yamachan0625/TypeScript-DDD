@@ -36,7 +36,7 @@ describe('TaskUpdateService', () => {
       TaskGroupId.create(TEST_DATA.taskGroupId),
       TaskId.create(TEST_DATA.taskId)
     );
-    expect(updatedTask.title.value).toEqual(updateData.title);
+    expect(updatedTask?.title.value).toEqual(updateData.title);
 
     const expectEventName = 'TaskUpdatedEvent';
     domainEventSubscriber.assertCall(expectEventName);

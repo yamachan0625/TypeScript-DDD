@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash';
 
 export abstract class ValueObject<T extends string, S> {
-  readonly _valueObjectType: T;
+  readonly _valueObjectType: T | undefined;
   private readonly _value: S;
   protected constructor(_value: S) {
     this._value = Object.freeze(_value);

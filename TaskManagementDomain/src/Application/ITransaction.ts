@@ -18,6 +18,6 @@ export const transactionMock = async <T>(
     return result;
   } catch (error) {
     domainEventPublisher.clear();
-    throw new Error(error);
+    throw new Error();
   }
 };

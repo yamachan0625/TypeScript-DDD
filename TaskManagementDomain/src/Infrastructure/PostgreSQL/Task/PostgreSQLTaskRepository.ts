@@ -104,7 +104,7 @@ export class PostgreSQLTaskRepository extends ITaskRepository {
       title: Title.create(data.title),
       description: Description.create(data.description),
       status: Status.fromKey(data.status),
-      dueDate: DueDate.create(data.dueDate),
+      dueDate: data.dueDate ? DueDate.create(data.dueDate) : null,
       createdAt: CreatedAt.create(data.createdAt),
       updatedAt: UpdatedAt.create(data.updatedAt),
     });
@@ -116,7 +116,7 @@ export class PostgreSQLTaskRepository extends ITaskRepository {
       title: entity.title.value,
       description: entity.description.value,
       status: entity.status.value.key,
-      dueDate: entity.dueDate?.value ?? null,
+      dueDate: entity.dueDate?.value ?? null, // prisma schemaでnullableにする
       createdAt: entity.createdAt.value,
       updatedAt: entity.updatedAt.value,
     };

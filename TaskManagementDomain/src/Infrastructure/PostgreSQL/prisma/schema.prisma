@@ -23,7 +23,7 @@ model Task {
   title       String
   description String
   status      TaskStatus  @default(INPROGRESS)
-  dueDate     DateTime
+  dueDate     DateTime?
   taskGroup   TaskGroup   @relation(fields: [taskGroupId], references: [id], onDelete: Cascade)
   taskGroupId String
   createdAt   DateTime    @default(now())
