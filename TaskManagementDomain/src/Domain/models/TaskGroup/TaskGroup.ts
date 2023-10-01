@@ -12,6 +12,7 @@ import {
   TaskGroupName,
 } from 'Domain/models/TaskGroup/TaskGroupName/TaskGroupName';
 import { DomainEventStorable } from 'Domain/shared/DomainEvent/DomainEvent';
+import { DomainException } from 'Domain/shared/DomainException';
 
 export class TaskGroup extends DomainEventStorable {
   private constructor(
@@ -86,7 +87,7 @@ export class TaskGroup extends DomainEventStorable {
 
   private changeUpdatedAt(updatedAt: UpdatedAt): void {
     if (this._createdAt.value > updatedAt.value) {
-      throw new Error('更新日は作成日よりも後でなければいけません');
+      throw new DomainException('更新日は作成日よりも後でなければいけません');
     }
     this._updatedAt = updatedAt;
   }

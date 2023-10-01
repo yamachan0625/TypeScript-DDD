@@ -1,4 +1,5 @@
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
+import { ApplicationException } from './shared/ApplicationException';
 
 export type ITransaction = <T>(
   domainEventPublisher: IDomainEventPublisher,
@@ -18,6 +19,6 @@ export const transactionMock = async <T>(
     return result;
   } catch (error) {
     domainEventPublisher.clear();
-    throw new Error();
+    throw new ApplicationException('transaction失敗');
   }
 };

@@ -1,3 +1,4 @@
+import { DomainException } from 'Domain/shared/DomainException';
 import { ValueObject } from './ValueObject';
 
 export type EnumType = { key: string; label: string };
@@ -23,7 +24,7 @@ export abstract class EnumValueObject<
     this.validateKey(key);
     const target = arr.find((item) => item.key === key);
     if (!target) {
-      throw Error(`キーが見つかりません: ${key}`);
+      throw new DomainException(`キーが見つかりません: ${key}`);
     }
     return target;
   }
@@ -35,26 +36,26 @@ export abstract class EnumValueObject<
     this.validateLabel(label);
     const target = arr.find((item) => item.label === label);
     if (!target) {
-      throw Error(`ラベルが見つかりません: ${label}`);
+      throw new DomainException(`ラベルが見つかりません: ${label}`);
     }
     return target;
   }
 
   static validateValue(value: EnumType): void {
     if (!this.options.includes(value)) {
-      throw Error(`値が正しくありません: ${value}`);
+      throw new DomainException(`値が正しくありません: ${value}`);
     }
   }
   static validateKey(key: string): void {
     const keys = this.options.map((item) => item.key);
     if (!keys.includes(key)) {
-      throw Error(`キーが正しくありません: ${key}`);
+      throw new DomainException(`キーが正しくありません: ${key}`);
     }
   }
   static validateLabel(label: string) {
     const labels = this.options.map((item) => item.label);
     if (!labels.includes(label)) {
-      throw Error(`ラベルが正しくありません: ${label}`);
+      throw new DomainException(`ラベルが正しくありません: ${label}`);
     }
   }
 }

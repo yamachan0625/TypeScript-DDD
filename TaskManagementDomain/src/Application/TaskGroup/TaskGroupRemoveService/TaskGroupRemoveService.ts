@@ -5,6 +5,7 @@ import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupRepository';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { ITransaction } from 'Application/ITransaction';
+import { ApplicationException } from 'Application/shared/ApplicationException';
 
 type TaskGroupRemoveCommand = {
   taskGroupId: string;
@@ -30,7 +31,11 @@ export class TaskGroupRemoveService {
         transaction
       );
       if (taskGroup === null) {
-        throw new Error('taskGroupIdに該当するデータが存在しません');
+        throw new ApplicationException(
+          'taskGroupIdに該当するデータが存在しません',
+          404,
+          'not_found'
+        );
       }
 
       taskGroup.remove();

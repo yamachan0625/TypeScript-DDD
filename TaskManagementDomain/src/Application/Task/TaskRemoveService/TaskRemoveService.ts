@@ -6,6 +6,7 @@ import { ITaskRepository } from 'Domain/models/Task/ITaskRepository';
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { TaskGroupId } from 'Domain/models/TaskGroup/TaskGroupId/TaskGroupId';
 import { ITransaction } from 'Application/ITransaction';
+import { ApplicationException } from 'Application/shared/ApplicationException';
 
 type TaskRemoveCommand = {
   taskGroupId: string;
@@ -33,7 +34,11 @@ export class TaskRemoveService {
         transaction
       );
       if (task === null) {
-        throw new Error('taskIdに該当するデータが存在しません');
+        throw new ApplicationException(
+          'taskIdに該当するデータが存在しません',
+          404,
+          'not_found'
+        );
       }
 
       task.remove();

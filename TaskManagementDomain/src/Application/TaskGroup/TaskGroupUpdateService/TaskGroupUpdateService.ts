@@ -6,6 +6,7 @@ import { ITaskGroupRepository } from 'Domain/models/TaskGroup/ITaskGroupReposito
 import { IDomainEventPublisher } from 'Domain/shared/DomainEvent/DomainEventPublisher';
 import { DomainEventListener } from 'Application/DomainEvent/DomainEventListener';
 import { ITransaction } from 'Application/ITransaction';
+import { ApplicationException } from 'Application/shared/ApplicationException';
 
 type TaskGroupUpdateCommand = {
   taskGroupId: string;
@@ -36,7 +37,11 @@ export class TaskGroupUpdateService {
       );
 
       if (taskGroup === null) {
-        throw new Error('taskGroupIdに該当するデータが存在しません');
+        throw new ApplicationException(
+          'taskGroupIdに該当するデータが存在しません',
+          404,
+          'not_found'
+        );
       }
 
       taskGroup.update({

@@ -16,5 +16,5 @@ export abstract class IdValueObject<
   }
   static readonly MAX_LENGTH = 100;
   static readonly MIN_LENGTH = 4;
-  static readonly REGEX = new RegExp(`^[a-zA-Z0-9０-９\-_]+$`, 'u');
+  static readonly REGEX = new RegExp(`^[a-zA-Z0-9０-９-_]+$`, 'u');
 }

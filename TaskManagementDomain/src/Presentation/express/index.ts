@@ -14,48 +14,6 @@ app.use(json());
 const PORT = process.env.PORT || 3003;
 app.listen(PORT);
 
-app.get('/', (req, res) => {
-  res.end('hello world');
-});
-
-const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response<{
-    type: 'error';
-    status: number;
-    code: string;
-    message: string;
-  }>,
-  next: NextFunction // eslint-disable-line
-) => {
-  if (err instanceof DomainException) {
-    res.status(err.status).json({
-      type: 'error',
-      status: err.status,
-      code: err.code,
-      message: err.message ?? '不正な要求です',
-    });
-  }
-
-  // ApplicationException
-  if (err instanceof ApplicationException) {
-    res.status(err.status).json({
-      type: 'error',
-      status: err.status,
-      code: err.code,
-      message: err.message ?? '不正な要求です',
-    });
-  }
-
-  res.status(500).json({
-    type: 'error',
-    status: 500,
-    code: 'internal_server_error',
-    message: `${err.message ?? 'internal server error'}`,
-  });
-};
-
 // taskGroup
 app.post(
   '/task_groups',
@@ -100,4 +58,44 @@ app.delete(
 // app.delete('/task_groups/:taskGroupId/tasks', async (req, res) => {});
 
 // カスタムエラーハンドラーミドルウェア。一番最後の行で設定。
+
+const errorHandler = (
+  err: Error,
+  req: Request,
+  res: Response<{
+    type: 'error';
+    status: number;
+    code: string;
+    message: string;
+  }>,
+  next: NextFunction // eslint-disable-line
+) => {
+  if (err instanceof DomainException) {
+    console.log(err.name);
+    res.status(err.status).json({
+      type: 'error',
+      status: err.status,
+      code: err.code,
+      message: err.message ?? '不正な要求です',
+    });
+  }
+
+  // ApplicationException
+  if (err instanceof ApplicationException) {
+    console.log(err.name);
+    res.status(err.status).json({
+      type: 'error',
+      status: err.status,
+      code: err.code,
+      message: err.message ?? '不正な要求です',
+    });
+  }
+
+  res.status(500).json({
+    type: 'error',
+    status: 500,
+    code: 'internal_server_error',
+    message: `${err.message ?? 'internal server error'}`,
+  });
+};
 app.use(errorHandler);

@@ -3,6 +3,7 @@ import { IDomainEventPublisher } from '../../Domain/shared/DomainEvent/DomainEve
 import { Prisma, PrismaClient } from '@prisma/client';
 import prisma from './prismaClient';
 import { ITransaction } from 'Application/ITransaction';
+import { ApplicationException } from 'Application/shared/ApplicationException';
 
 export type Transaction = Omit<
   PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
@@ -17,7 +18,7 @@ export const transaction: ITransaction = async <T>(
       return await transactionFunc(transaction);
     } catch (error) {
       domainEventPublisher.clear();
-      throw new Error();
+      throw new ApplicationException('transaction失敗');
     }
   });
 

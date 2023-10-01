@@ -11,7 +11,8 @@
     "db:down": "docker compose down",
     "test:it": "./src/Infrastructure/PostgreSQL/scripts/run-integration.sh",
     "test:ut": "jest --testPathIgnorePatterns='/Infrastructure/'",
-    "build": "tsc"
+    "build": "tsc",
+    "compile": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",

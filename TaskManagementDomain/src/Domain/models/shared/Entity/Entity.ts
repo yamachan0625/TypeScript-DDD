@@ -1,6 +1,7 @@
 import { DomainEventStorable } from 'Domain/shared/DomainEvent/DomainEvent';
 import { CreatedAt } from '../CreatedAt/CreatedAt';
 import { UpdatedAt } from '../UpdatedAt/UpdatedAt';
+import { DomainException } from 'Domain/shared/DomainException';
 
 export abstract class Entity extends DomainEventStorable {
   constructor(
@@ -12,7 +13,7 @@ export abstract class Entity extends DomainEventStorable {
 
   protected changeUpdatedAt(updatedAt: UpdatedAt): void {
     if (this._createdAt.value > updatedAt.value) {
-      throw new Error('更新日は作成日よりも後でなければいけません');
+      throw new DomainException('更新日は作成日よりも後でなければいけません');
     }
     this._updatedAt = updatedAt;
   }
